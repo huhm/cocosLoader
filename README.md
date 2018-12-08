@@ -1,10 +1,14 @@
 ## cocosLoader
 
 ### Description
+主要是为了解决单场景项目，资源全部是挂载在场景上，导致内存越来越大的问题，可以基于现有项目一点点将资源改造成自动加载请求。
+前期查找了cocos论坛上各种实现方式，没找到可以基于现有项目改造的资源请求的方式，只能自己动手写一个了
 有以下两个模块：
-1.资源的自动加载和释放管理  LoaderManager
-2.远程资源的本地缓存（For Andriod） RemoteFileCacher
-主要是为了解决单场景项目，资源全部是挂载在场景上，导致内存越来越大的问题，可以一点点将资源改造成自动加载请求
+1. 资源的自动加载和释放管理  LoaderManager
+2. 远程资源的本地缓存（For 原生） RemoteFileCacher
+
+目前只在1.8.2的windows平台和web平台测试过
+
 
 ### RemoteFileCacher
 默认有两个RemoteFileCache容器
