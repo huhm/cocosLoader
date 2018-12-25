@@ -1,7 +1,8 @@
 
 import { md5 } from "../../Third/js-md5";
 import { loggerError, trim } from "../../Lib/Utils"; 
-import { IErrorData, ErrorCode } from "../ErrorModel";
+import { ErrorCode, IErrorData } from "../ErrorModel";
+
 type LoadCallback<T> = (err, resource: T, path: string)=>void
 export class RemoteFileCache {
     //#region 存储路径
@@ -142,6 +143,7 @@ export class RemoteFileCache {
     private _downloadMap: { [url: string]: ((err, data?) => void)[] } = {};
 
     private download(url, callback: (err, data?) => void) {
+        var that = this;
         var cbList = this._downloadMap[url];
         if (cbList) {
             cbList.push(callback);
@@ -151,11 +153,20 @@ export class RemoteFileCache {
         this._downloadMap[url] = cbList;
 
         function dealCallback(err, data?) {
-            cbList.forEach(cb => {
-                if (cb) {
-                    cb(err, data);
-                }
-            })
+            if(cbList){
+                cbList.forEach(cb => {
+                    if (cb) {
+                        try {
+                            cb(err, data);
+                        } catch (ex) {
+                            cc.log("download Cb Throw ex", ex);
+                        }
+                    }
+                });
+                that._downloadMap[url] = null;
+                delete that._downloadMap[url];
+                cbList=null;
+            }
         }
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
