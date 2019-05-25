@@ -7,7 +7,7 @@
 1. 资源的自动加载和释放管理  LoaderManager
 2. 远程资源的本地缓存（For 原生） RemoteFileCacher
 
-目前只在1.8.2的windows平台和web平台测试过
+目前只在1.8.2的android平台和web平台测试过
 
 
 ### RemoteFileCacher
