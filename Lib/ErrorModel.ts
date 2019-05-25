@@ -43,7 +43,8 @@ export const ErrorCode = {
      * 参数错误
      */
     ParamError:-1008,
-    NotFindInLocal:-1009,
+    NotFindInLocal: -1009,
+    VerifyError:-1010,
     OK:0,
 
 
